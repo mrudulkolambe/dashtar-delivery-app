@@ -5,22 +5,24 @@ import Spinner from '../components/Spinner'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-export default function Home({setUser}) {
+export default function Home({ setUser }) {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
-  const login = () => {
-    setLoading(true)
-    axios.post(`${window.location.origin}/api/login`, { email, password })
+  const login = async () => {
+    // setLoading(true)
+    let user = await axios({
+      url: `https://dashtar-store-backend.vercel.app/api/admin/staff-login`,
+      method: 'post',
+      data: { email, password }
+    })
       .then((res) => {
-        if (res) {
-          setLoading(false);
-          console.log(res.data)
-          setUser(res.data)
-          alert('Login successfull')
-          router.push('/main')
-        }
+        setLoading(false);
+        console.log(res.data)
+        setUser(res.data)
+        alert('Login successfull')
+        router.push('/main')
       })
       .catch((err) => {
         alert(err.message)

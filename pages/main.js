@@ -16,10 +16,10 @@ const Main = ({ user, setUser }) => {
 				method: 'post',
 			})
 				.then(async (res) => {
-					console.log(res.data)
+					// console.log(res.data)
 					if (res.data && res.data.order && res.data.order.length !== 0 || res.data.status === 'Delivering') {
 						let order = await axios({
-							url: `${process.env.REACT_APP_API_BASE_URL}/orders/${res.data.order}`,
+							url: `https://dashtar-store-backend.vercel.app/api/orders/${res.data.order}`,
 							method: 'get',
 						})
 						setOrderData(order.data)
@@ -67,7 +67,7 @@ const Main = ({ user, setUser }) => {
 						<button onClick={orderDelivered} className='mt-2 bg-blue-700 hover:bg-blue-600 duration-200 rounded-md font-bold text-white px-2 py-1'>Delivered</button>
 					</div> : <h1 className='font-bold text-2xl'>No Orders!</h1>}
 				</div>
-				<div className='mt-3 p-3 bg-gray-600 rounded-lg shadow-lg'>
+				<div className='mt-3 p-3 bg-gray-600 rounded-lg shadow-lg hidden'>
 					<h1 className='font-bold text-2xl mb-2 text-white'>Assigned Order:</h1>
 					<div>
 						<label className='text-white font-semibold mb-1' htmlFor="status">Status: </label>
