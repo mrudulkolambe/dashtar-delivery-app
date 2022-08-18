@@ -33,17 +33,17 @@ const Main = ({ user, setUser }) => {
 			status: 'Delivered'
 		}
 		let order = await axios({
-			url: `http://localhost:5055/api/orders/${orderData._id}`,
+			url: `https://dashtar-store-backend.vercel.app/api/orders/${orderData._id}`,
 			method: 'put',
 			data: body
 		})
 		.then(async () => {
 			let staffBody = {status: "Idle", order: ""}
-			// let staff = await axios({
-			// 	url: `http://localhost:5055/api/admin/update/${window.sessionStorage.getItem('user')}`,
-			// 	method: 'put',
-			// 	data: {staffBody}
-			// })
+			let staff = await axios({
+				url: `https://dashtar-store-backend.vercel.app/api/admin/update/${user._id}`,
+				method: 'put',
+				data: {staffBody}
+			})
 		})
 		setOrderData()
 	}
