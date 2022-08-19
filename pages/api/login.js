@@ -1,7 +1,7 @@
 import axios from "axios"
 
-export default function handler(req, res) {
-  const user = axios({
+export default async function handler(req, res) {
+  let user = await axios({
     url: `https://dashtar-store-backend.vercel.app/api/admin/staff-login`,
     method: 'post',
     data: {
@@ -9,5 +9,11 @@ export default function handler(req, res) {
       password: req.body.password
     }
   })
-  res.status(200).send(user)
+    // .then((response) => {
+    //   res.send(response)
+    // })
+    // .catch((err) => {
+    //   res.send(err)
+    // })
+    res.send(user)
 }
